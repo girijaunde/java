@@ -1,0 +1,95 @@
+import java.util.Scanner;
+
+public class SBI implements RBI {
+    Scanner sc = new Scanner(System.in);
+    Account account;
+
+    @Override
+    public void createAccount() {
+        account = new Account();
+
+        System.out.print("Enter Your Name: ");
+        account.setAccountName(sc.next());
+
+        System.out.print("Enter Your Aadhar Card: ");
+        account.setAadharCard(sc.next());
+
+        System.out.print("Enter Your Pan Card: ");
+        account.setPanCard(sc.next());
+
+        System.out.print("Enter Your Email ID: ");
+        account.setEmail(sc.next());
+
+        System.out.print("Enter Your Contact No.: ");
+        account.setContact(sc.nextLong());
+
+        System.out.print("Enter Your Account Opening Balance: ");
+        account.setBalance(sc.nextDouble());
+
+        String generatedAccNo = String.valueOf((int)(Math.random() * 900000) + 100000);
+        account.setAccountNo(generatedAccNo);
+
+        System.out.println(" ");
+        System.out.println("Your Account Number has been Generated: " + generatedAccNo);
+        System.out.println("Your Account has Sucessfully!...\n");
+    }
+
+    @Override
+    public void showAccountDetails() {
+        if (account != null) {
+            System.out.println(account.toString());
+        } else {
+            System.out.println("No account found. Please create an account first.");
+        }
+    }
+
+    @Override
+    public void showAccountBalance() {
+        if (account != null) {
+            System.out.println("Available Balance: ₹" + account.getBalance());
+        } else {
+            System.out.println("No account found. Please create an account first.");
+        }
+    }
+
+    @Override
+    public void withdrawMoney() {
+        if (account != null) {
+            System.out.print("Enter amount to withdraw: ");
+            double amt = sc.nextDouble();
+            if (amt <= account.getBalance()) {
+                account.setBalance(account.getBalance() - amt);
+                System.out.println("Withdrawal successful!");
+            } else {
+                System.out.println("Insufficient Balance!");
+            }
+        } else {
+            System.out.println("No account found. Please create an account first.");
+        }
+    }
+
+    @Override
+    public void depositMoney() {
+        if (account != null) {
+            System.out.print("Enter amount to deposit: ");
+            double amt = sc.nextDouble();
+            account.setBalance(account.getBalance() + amt);
+            System.out.println("Deposit successful!");
+        } else {
+            System.out.println("No account found. Please create an account first.");
+        }
+    }
+
+    @Override
+    public void updateAccountInfo() {
+        if (account != null) {
+            System.out.print("Enter new Email ID: ");
+            account.setEmail(sc.next());
+            System.out.print("Enter new Contact No: ");
+            account.setContact(sc.nextLong());
+            System.out.println("Information Updated Successfully!");
+        } else {
+            System.out.println("No account found. Please create an account first.");
+        }
+    }
+}
